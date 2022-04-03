@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  swagger-ui:
+     image: swaggerapi/swagger-ui
+     container_name: hash-map-api-v1-swagger-contailer
+     ports:
+        - "8083:8080"
+     volumes:
+        - ./doc:/usr/share/nginx/html/doc
+     environment:
+        URLS: "[
+            { url: 'doc/hash-map-api-v1-documentation.yml', name: 'HashMapAPI V1'},
+          ]"

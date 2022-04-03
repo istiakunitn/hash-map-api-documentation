@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  title: HashMap API
+  version: 2.0.0
+servers:
+  - url: http://localhost:3000
+components:
+  # securitySchemes:
+  #   bearerAuth:
+  #     type: http
+  #     scheme: bearer
+  #     bearerFormat: JWT 
+  # security:
+  #   - bearerAuth: []
+tags:
+  - name: Users
+  - name: HashMaps
+paths:
+  /api/v1/login:
+    post:
+      tags:
+        - Users
+      summary: User login
+      description: User login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              example:
+                {
+                  "user": {
+                    "email": "your_email@somewhere.it",
+                    "password": "your password"
+                  }
+                }
+      security:
+        bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/logout:
+    delete:
+      tags:
+        - Users
+      summary: User logout
+      description: User logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              example: application/json
+      security:
+        bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '204':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/signup:
+    post:
+      tags:
+        - Users
+      summary: Create a user
+      description: Create new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              example:
+                {
+                  "user": {
+                    "first_name": "John",
+                    "last_name": "Snow",
+                    "email": "your-email@somewhere.it",
+                    "role": "member"
+                  }
+                }
+      security:
+        bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users:
+    get:
+        tags:
+          - Users
+        summary: Get users only by super admin
+        description: Retrieve user informations
+        security:
+          - basicAuth: []
+        parameters:
+          - name: Content-Type
+            in: header
+            schema:
+              type: string
+            example: application/json
+          - name: Authorization
+            in: path
+            schema:
+              type: string
+            required: true
+            description: Admin user bearer token needed to do this request. Token can be obtained from a valid admin sign in 
+            example: 'Bearer a-valid-bearer-got-received-throught-user-login-via-response-header'
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json: {}
+  /api/v1/all_hash_maps:
+    get:
+        tags:
+          - HashMaps
+        summary: Get users only by super admin
+        description: Retrieve user informations
+        security:
+          - basicAuth: []
+        parameters:
+          - name: Content-Type
+            in: header
+            schema:
+              type: string
+            example: application/json
+          - name: Authorization
+            in: header
+            schema:
+              type: string
+            required: true
+            description: Admin user bearer token needed to do this request. Token can be obtained from a valid admin sign in
+            example: 'Bearer a-valid-bearer-got-received-throught-user-login-via-response-header'
+        responses:
+          '200':
+            description: Successful response
+            content:
+              application/json: {}
+  /api/v1/users/{user_id}/hash_maps:
+    post:
+      tags:
+        - HashMaps
+      summary: Create user hash maps
+      description: Create user hash maps
+      security:
+          - basicAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+          description: User bearer token needed to do this request. Token can be obtained from a valid user sign in
+          example: 'Bearer a-valid-bearer-got-received-throught-user-login-via-response-header'
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: User ID
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - HashMaps
+      summary: Get user hash maps
+      description: Get user hash maps
+      security:
+          - basicAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+          description: User bearer token needed to do this request. Token can be obtained from a valid user sign in
+          example: 'Bearer a-valid-bearer-got-received-throught-user-login-via-response-header'
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: User ID
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/{user_id}/hash_maps/{id}:
+    get:
+      tags:
+        - HashMaps
+      summary: Get a hash map
+      description: Get a hash maps
+      security:
+          - basicAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+          description: User bearer token needed to do this request. Token can be obtained from a valid user sign in
+          example: 'Bearer a-valid-bearer-got-received-throught-user-login-via-response-header'
+        - name: user_id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: User id
+          example: '1'
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          description: Hash map id
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  
