@@ -1,6 +1,6 @@
 # HashMapAPI documentation
 
-<!-- ![screenshot](img/scrot.png) -->
+![screenshot](img/hash-map-image.png)
 
 ## Running the Swagger UI
 
